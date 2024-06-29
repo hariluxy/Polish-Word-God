@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     # Create the main window
     root = tk.Tk()
-    root.title("Word Analyzer")
+    root.title("Polish Word God")
 
     # Create and place widgets
     label_file_path = tk.Label(root, text="Select Word List File (optional)")
