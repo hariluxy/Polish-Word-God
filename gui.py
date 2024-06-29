@@ -66,14 +66,14 @@ if __name__ == "__main__":
     root.title("Word Analyzer")
 
     # Create and place widgets
-    label_file_path = tk.Label(root, text="Select Word List File (optional):")
+    label_file_path = tk.Label(root, text="Select Word List File (optional)")
     label_file_path.grid(row=0, column=0, padx=10, pady=5, sticky="e")
     entry_file_path = tk.Entry(root, width=50)
     entry_file_path.grid(row=0, column=1, padx=10, pady=5)
     button_browse_file = tk.Button(root, text="Browse", command=select_file)
     button_browse_file.grid(row=0, column=2, padx=10, pady=5)
 
-    label_output_directory = tk.Label(root, text="Select Output Directory (optional):")
+    label_output_directory = tk.Label(root, text="Select Output Directory (optional)")
     label_output_directory.grid(row=1, column=0, padx=10, pady=5, sticky="e")
     entry_output_directory = tk.Entry(root, width=50)
     entry_output_directory.grid(row=1, column=1, padx=10, pady=5)
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     checkbox_save_to_file = tk.Checkbutton(root, text="Save results to file", variable=save_to_file_var)
     checkbox_save_to_file.grid(row=1, column=3, padx=10, pady=5, sticky="w")
 
-    label_text_box = tk.Label(root, text="Or enter words directly (one per line or separated by ;):")
+    label_text_box = tk.Label(root, text="You may also enter words directly (one per line or separated by ';')")
     label_text_box.grid(row=2, column=0, padx=10, pady=5, sticky="ne")
     text_box = tk.Text(root, width=50, height=10)
     text_box.grid(row=2, column=1, padx=10, pady=5, columnspan=2)
