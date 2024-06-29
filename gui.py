@@ -59,43 +59,45 @@ def start_analysis():
 
     run_analysis(words, output_dir)
 
-# Create the main window
-root = tk.Tk()
-root.title("Word Analyzer")
+if __name__ == "__main__":
 
-# Create and place widgets
-label_file_path = tk.Label(root, text="Select Word List File (optional):")
-label_file_path.grid(row=0, column=0, padx=10, pady=5, sticky="e")
-entry_file_path = tk.Entry(root, width=50)
-entry_file_path.grid(row=0, column=1, padx=10, pady=5)
-button_browse_file = tk.Button(root, text="Browse", command=select_file)
-button_browse_file.grid(row=0, column=2, padx=10, pady=5)
+    # Create the main window
+    root = tk.Tk()
+    root.title("Word Analyzer")
 
-label_output_directory = tk.Label(root, text="Select Output Directory (optional):")
-label_output_directory.grid(row=1, column=0, padx=10, pady=5, sticky="e")
-entry_output_directory = tk.Entry(root, width=50)
-entry_output_directory.grid(row=1, column=1, padx=10, pady=5)
-button_browse_directory = tk.Button(root, text="Browse", command=select_output_directory)
-button_browse_directory.grid(row=1, column=2, padx=10, pady=5)
+    # Create and place widgets
+    label_file_path = tk.Label(root, text="Select Word List File (optional):")
+    label_file_path.grid(row=0, column=0, padx=10, pady=5, sticky="e")
+    entry_file_path = tk.Entry(root, width=50)
+    entry_file_path.grid(row=0, column=1, padx=10, pady=5)
+    button_browse_file = tk.Button(root, text="Browse", command=select_file)
+    button_browse_file.grid(row=0, column=2, padx=10, pady=5)
 
-save_to_file_var = tk.IntVar()
-checkbox_save_to_file = tk.Checkbutton(root, text="Save results to file", variable=save_to_file_var)
-checkbox_save_to_file.grid(row=1, column=3, padx=10, pady=5, sticky="w")
+    label_output_directory = tk.Label(root, text="Select Output Directory (optional):")
+    label_output_directory.grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    entry_output_directory = tk.Entry(root, width=50)
+    entry_output_directory.grid(row=1, column=1, padx=10, pady=5)
+    button_browse_directory = tk.Button(root, text="Browse", command=select_output_directory)
+    button_browse_directory.grid(row=1, column=2, padx=10, pady=5)
 
-label_text_box = tk.Label(root, text="Or enter words directly (one per line or separated by ;):")
-label_text_box.grid(row=2, column=0, padx=10, pady=5, sticky="ne")
-text_box = tk.Text(root, width=50, height=10)
-text_box.grid(row=2, column=1, padx=10, pady=5, columnspan=2)
+    save_to_file_var = tk.IntVar()
+    checkbox_save_to_file = tk.Checkbutton(root, text="Save results to file", variable=save_to_file_var)
+    checkbox_save_to_file.grid(row=1, column=3, padx=10, pady=5, sticky="w")
 
-button_start = tk.Button(root, text="Start Analysis", command=start_analysis)
-button_start.grid(row=3, column=1, padx=10, pady=20)
+    label_text_box = tk.Label(root, text="Or enter words directly (one per line or separated by ;):")
+    label_text_box.grid(row=2, column=0, padx=10, pady=5, sticky="ne")
+    text_box = tk.Text(root, width=50, height=10)
+    text_box.grid(row=2, column=1, padx=10, pady=5, columnspan=2)
 
-# Create and place the table for displaying results
-columns = ("Initial Word", "Base Form", "POS")
-table = ttk.Treeview(root, columns=columns, show="headings")
-for col in columns:
-    table.heading(col, text=col)
-table.grid(row=4, column=0, columnspan=3, padx=10, pady=20)
+    button_start = tk.Button(root, text="Start Analysis", command=start_analysis)
+    button_start.grid(row=3, column=1, padx=10, pady=20)
 
-# Run the GUI event loop
-root.mainloop()
+    # Create and place the table for displaying results
+    columns = ("Initial Word", "Base Form", "POS")
+    table = ttk.Treeview(root, columns=columns, show="headings")
+    for col in columns:
+        table.heading(col, text=col)
+    table.grid(row=4, column=0, columnspan=3, padx=10, pady=20)
+
+    # Run the GUI event loop
+    root.mainloop()
