@@ -6,6 +6,7 @@ def load_words_from_file(word_file):
         words = [line.strip() for line in file.readlines()]
     return words
 
+# I want only to push this one
 # Save results to separate files based on POS categories
 def save_results_to_files(results, output_dir):
     if not os.path.exists(output_dir):
