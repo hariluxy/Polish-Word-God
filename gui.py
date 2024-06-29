@@ -4,7 +4,6 @@ import re
 from file_managing import load_words_from_file, save_results_to_files
 from word_analysis import analyze_words
 
-# Function to run the analysis
 def run_analysis(words, output_dir=None):
     print(f"Running analysis on: {words}")
     results = analyze_words(words)
@@ -13,7 +12,6 @@ def run_analysis(words, output_dir=None):
     update_table(results)
     messagebox.showinfo("Success", "Analysis complete. Results saved in the specified directory." if output_dir else "Analysis complete. Results displayed in the table.")
 
-# Function to update the table with analysis results
 def update_table(results):
     # Clear the table
     for row in table.get_children():
@@ -22,7 +20,6 @@ def update_table(results):
     for result in results:
         table.insert("", "end", values=result)
 
-# GUI Setup
 def select_file():
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
@@ -65,49 +62,45 @@ def start_analysis():
 
     run_analysis(words, output_dir)
 
-# Create the main window
-root = tk.Tk()
-root.title("Polish Word God")
+def create_gui(root):
+    global entry_file_path, entry_output_directory, save_to_file_var, text_box, delimiter_var, table
 
-# Create and place widgets
-label_file_path = tk.Label(root, text="Select Word List File (optional):")
-label_file_path.grid(row=0, column=0, padx=10, pady=5, sticky="e")
-entry_file_path = tk.Entry(root, width=50)
-entry_file_path.grid(row=0, column=1, padx=10, pady=5)
-button_browse_file = tk.Button(root, text="Browse", command=select_file)
-button_browse_file.grid(row=0, column=2, padx=10, pady=5)
+    # Create and place widgets
+    label_file_path = tk.Label(root, text="Select Word List File (optional):")
+    label_file_path.grid(row=0, column=0, padx=10, pady=5, sticky="e")
+    entry_file_path = tk.Entry(root, width=50)
+    entry_file_path.grid(row=0, column=1, padx=10, pady=5)
+    button_browse_file = tk.Button(root, text="Browse", command=select_file)
+    button_browse_file.grid(row=0, column=2, padx=10, pady=5)
 
-label_output_directory = tk.Label(root, text="Select Output Directory (optional):")
-label_output_directory.grid(row=1, column=0, padx=10, pady=5, sticky="e")
-entry_output_directory = tk.Entry(root, width=50)
-entry_output_directory.grid(row=1, column=1, padx=10, pady=5)
-button_browse_directory = tk.Button(root, text="Browse", command=select_output_directory)
-button_browse_directory.grid(row=1, column=2, padx=10, pady=5)
+    label_output_directory = tk.Label(root, text="Select Output Directory (optional):")
+    label_output_directory.grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    entry_output_directory = tk.Entry(root, width=50)
+    entry_output_directory.grid(row=1, column=1, padx=10, pady=5)
+    button_browse_directory = tk.Button(root, text="Browse", command=select_output_directory)
+    button_browse_directory.grid(row=1, column=2, padx=10, pady=5)
 
-save_to_file_var = tk.IntVar()
-checkbox_save_to_file = tk.Checkbutton(root, text="Save results to file", variable=save_to_file_var)
-checkbox_save_to_file.grid(row=1, column=3, padx=10, pady=5, sticky="w")
+    save_to_file_var = tk.IntVar()
+    checkbox_save_to_file = tk.Checkbutton(root, text="Save results to file", variable=save_to_file_var)
+    checkbox_save_to_file.grid(row=1, column=3, padx=10, pady=5, sticky="w")
 
-label_text_box = tk.Label(root, text="You may also enter words directly:")
-label_text_box.grid(row=2, column=0, padx=10, pady=5, sticky="ne")
-text_box = tk.Text(root, width=50, height=10)
-text_box.grid(row=2, column=1, padx=10, pady=5, columnspan=2)
+    label_text_box = tk.Label(root, text="You may also enter words directly:")
+    label_text_box.grid(row=2, column=0, padx=10, pady=5, sticky="ne")
+    text_box = tk.Text(root, width=50, height=10)
+    text_box.grid(row=2, column=1, padx=10, pady=5, columnspan=2)
 
-label_delimiter = tk.Label(root, text="Select delimiter:")
-label_delimiter.grid(row=3, column=0, padx=10, pady=5, sticky="e")
-delimiter_var = tk.StringVar(value="New line")
-delimiter_options = ttk.Combobox(root, textvariable=delimiter_var, values=["New line", "Semicolon", "Regular speech"], state="readonly")
-delimiter_options.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+    label_delimiter = tk.Label(root, text="Select delimiter:")
+    label_delimiter.grid(row=3, column=0, padx=10, pady=5, sticky="e")
+    delimiter_var = tk.StringVar(value="New line")
+    delimiter_options = ttk.Combobox(root, textvariable=delimiter_var, values=["New line", "Semicolon", "Regular speech"], state="readonly")
+    delimiter_options.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
-button_start = tk.Button(root, text="Start Analysis", command=start_analysis)
-button_start.grid(row=4, column=1, padx=10, pady=20)
+    button_start = tk.Button(root, text="Start Analysis", command=start_analysis)
+    button_start.grid(row=4, column=1, padx=10, pady=20)
 
-# Create and place the table for displaying results
-columns = ("Initial Word", "Base Form", "POS")
-table = ttk.Treeview(root, columns=columns, show="headings")
-for col in columns:
-    table.heading(col, text=col)
-table.grid(row=5, column=0, columnspan=3, padx=10, pady=20)
-
-# Run the GUI event loop
-root.mainloop()
+    # Create and place the table for displaying results
+    columns = ("Initial Word", "Base Form", "POS")
+    table = ttk.Treeview(root, columns=columns, show="headings")
+    for col in columns:
+        table.heading(col, text=col)
+    table.grid(row=5, column=0, columnspan=3, padx=10, pady=20)
