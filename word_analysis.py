@@ -1,7 +1,6 @@
 import morfeusz2
 import re
 
-# I want to push this one too but with different commit
 # Function to map detailed POS tags to major categories
 def map_pos_to_category(pos):
     if any(tag in pos for tag in ["subst"]):
@@ -41,13 +40,16 @@ def get_base_forms_morfeusz(word):
         results.append((base_form, major_pos))
     return results
 
-# Analyze words
+# Analyze words and ensure unique results
 def analyze_words(words):
+    unique_results = set()
     results = []
     for word in words:
         # Get all base forms and major POS using Morfeusz 2
         analyses = get_base_forms_morfeusz(word)
         for base_form, pos in analyses:
-            print(f"Initial word: {word}, Base Form: {base_form}, POS: {pos}")  # Debugging output
-            results.append([word.lower(), base_form, pos])
+            if (base_form, pos) not in unique_results:
+                unique_results.add((base_form, pos))
+                print(f"Initial word: {word}, Base Form: {base_form}, POS: {pos}")  # Debugging output
+                results.append([word.lower(), base_form, pos])
     return results
