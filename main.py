@@ -3,7 +3,7 @@ from gui import create_gui
 
 def main():
     root = tk.Tk()
-    root.title("Polish Word God")
+    root.title("Polish Word Wizard by Harilux")
     create_gui(root)
     root.mainloop()
 
