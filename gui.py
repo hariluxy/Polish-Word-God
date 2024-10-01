@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-import re
-from file_managing import load_words_from_file, save_results_to_files
+from save_operations import load_words_from_file, save_results_to_files
 from word_analysis import analyze_words
 
 def run_analysis(words, output_dir=None):
