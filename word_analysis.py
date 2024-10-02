@@ -13,7 +13,7 @@ def map_pos_to_category(pos):
         return "numeral"
     if any(tag in pos for tag in ["fin", "bedzie", "praet", "impt", "imps", "inf", "pcon", "pant", "pact", "ppas", "aglt", "ger"]):
         return "verb"
-    if any(tag in pos for tag in ["adv"]):
+    if any(tag in pos for tag in ["adv", "part"]):
         return "adverb"
     if any(tag in pos for tag in ["prep"]):
         return "preposition"
@@ -31,13 +31,16 @@ def get_base_forms_morfeusz(word):
     morf = morfeusz2.Morfeusz()
     analyses = morf.analyse(word.lower())
     results = []
+    #print(analyses)
     for analysis in analyses:
         base_form = analysis[2][1]
         base_form = clean_base_form(base_form)
         pos = analysis[2][2]
         major_pos = map_pos_to_category(pos)
         classification = analysis[2][3]  # Get classification list
-        results.append((base_form, major_pos, pos, classification))
+        qualifier = analysis[2][4] # Get qualifiers
+
+        results.append((base_form, major_pos, pos, classification, qualifier))
     return results
 
 # Analyze words and ensure unique results, excluding specific types
@@ -46,17 +49,21 @@ def analyze_words(words):
     results = []
     
     excluded_classifications = ["nazwa_geograficzna", "imię", "nazwisko", "nazwa_organizacji"]
+    excluded_qualifiers = ["książk.", "daw."]
+    
     
     for word in words:
         analyses = get_base_forms_morfeusz(word)
-        for base_form, major_pos, full_pos, classification in analyses:
+        for base_form, major_pos, full_pos, classification, qualifier in analyses:
             # Check if the word has any of the excluded classifications
             if any(tag in classification for tag in excluded_classifications):
                 continue  # Skip this word
-            
+            elif any(qual in qualifier for qual in excluded_qualifiers):
+                continue
+
             if (base_form, major_pos) not in unique_results:
                 unique_results.add((base_form, major_pos))
-                print(f"Initial word: {word}, Base Form: {base_form}, POS: {major_pos}, Full POS: {full_pos}, Classification: {classification}")
+                print(f"Initial word: {word}, Base Form: {base_form}, POS: {major_pos}, Full POS: {full_pos}, Classification: {classification}, Qualifier: {qualifier}")
                 results.append([word.lower(), base_form, major_pos])
     
     return results
